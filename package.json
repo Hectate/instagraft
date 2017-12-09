@@ -1,0 +1,13 @@
+{
+  "name": "instagraft",
+  "version": "1.0.0",
+  "description": "Instant Graftification creates Starfinder creatures and NPCs using the graft rules provided by Paizo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Nathaniel 'Hectate' Mitchell",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
