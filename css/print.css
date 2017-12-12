@@ -39,6 +39,7 @@ input, select {
     left: 0;
     background-color: #111;
     overflow-x: hidden;
+    display: none !important;
 }
 
 
@@ -47,17 +48,18 @@ input, select {
     color: white;
     padding: 16px;
     text-decoration: none;
-    display: block;
+    display: none !important;
 }
 
 /* Change color on hover */
 .sidenav a:hover {
     background-color: #ddd;
     color: black;
+    display: none !important;
 }
 
 /* Style the content */
 .content {
-    margin-left: 200px;
+    margin-left:0px;
     padding-left: 20px;
 }
