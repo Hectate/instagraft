@@ -29,6 +29,19 @@ input, select {
             box-sizing: border-box;
 }
 
+.warning {
+    color: red;
+    font-weight: bold;
+}
+
+.sidenav-text {
+    color:white;
+}
+
+.sidenav-check {
+    width:auto;
+}
+
 /* Style the side navigation */
 .sidenav {
     height: 100%;

@@ -19,17 +19,34 @@ data.npcData = {
     npcFort: null,
     npcRef: null,
     npcWill: null,
-    npcSpeed: null,
-    npcClimb: null,
-    npcMelee: '',
+    npcSpeed: "",
+    npcClimb: "",
+    npcBurrow:"",
+    npcFly:"",
+    npcAttackHigh:'',
+    npcAttackLow:'',
+    npcMeleeShown:false,
+    npcRangedShown:false,
+    npcMeleeAttack: '',
+    npcMeleeDamage:'',
+    npcRangedAttack: '',
+    npcRangedDamage:'',
+    npcOffensiveAbilities:'',
+    npcSpellLikeAbilities:'',
     npcSpace: '',
     npcReach: '',
-    npcStr: null,
-    npcDex: null,
-    npcCon: null,
-    npcInt: null,
-    npcWis: null,
-    npcCha: null,
+    npcAbilityScore1:0,
+    npcAbilityScore2:0,
+    npcAbilityScore3:0,
+    npcAbilityScore1Assigned:"",
+    npcAbilityScore2Assigned:"",
+    npcAbilityScore3Assigned:"",
+    npcStr: 0,
+    npcDex: 0,
+    npcCon: 0,
+    npcInt: 0,
+    npcWis: 0,
+    npcCha: 0,
     npcSkills:"TODO: Insert an array of Skills and scores as selected by the user, and then loop to display.",
     npcEnv: "",
     npcOrg: "",
@@ -68,6 +85,7 @@ var app = new Vue({
     },
     updateCR: function() {
       getStats(this.npcData.npcArray, this.npcData.npcCR);
+      updateAbilityScores();
     },
     updateRace: function() {
       console.log("Need to update stats based on racials.");
@@ -80,9 +98,45 @@ var app = new Vue({
     },
     updateSubtype: function() {
       console.log("Need to update stats based on subtype.");
+    },
+    showWarning: function(warning) {
+        if(warning == 'abilities') {
+            if(this.npcData.npcAbilityScore1Assigned == "") { return false; }
+            if(this.npcData.npcAbilityScore2Assigned == "") { return false; }
+            if(this.npcData.npcAbilityScore3Assigned == "") { return false; }
+            if(this.npcData.npcAbilityScore1Assigned == this.npcData.npcAbilityScore2Assigned) {
+                return true;
+            }
+            else if(this.npcData.npcAbilityScore1Assigned == this.npcData.npcAbilityScore3Assigned) {
+                return true;
+            }
+            else if(this.npcData.npcAbilityScore2Assigned == this.npcData.npcAbilityScore3Assigned) {
+                return true;
+            }
+            else return false;
+        }
+    },
+    updateAbilities: function() {
+        updateAbilityScores();
     }
   }
 })
+
+function updateAbilityScores() {
+    var list = ["Str","Dex","Con","Int","Wis","Cha"];
+    for(let i in list) {
+        if(app.npcData.npcAbilityScore1Assigned == list[i]) {
+            app.npcData["npc"+list[i]] = app.npcData.npcAbilityScore1;
+        }
+        else if(app.npcData.npcAbilityScore2Assigned == list[i]) {
+            app.npcData["npc"+list[i]] = app.npcData.npcAbilityScore2;
+        }
+        else if(app.npcData.npcAbilityScore3Assigned == list[i]) {
+            app.npcData["npc"+list[i]] = app.npcData.npcAbilityScore3;
+        }
+        else { app.npcData["npc"+list[i]] = 0; }
+    }
+}
 
 function getStats (array,cr) {
   console.log("setting CR to " + array + " " + cr);
@@ -92,7 +146,8 @@ function getStats (array,cr) {
     if(arrays[array][cr][i] != undefined) {
       app.npcData[i] = arrays[array][cr][i];
     }
-    app.npcData.npcXP = xp[cr].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    app.npcData.npcXP = xp[cr].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //XP from CR
+    app.npcData.npcPerception = arrays[array][cr].npcGoodSkill; //Perception is a "Good" skill by default
   }
 }
 
