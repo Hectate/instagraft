@@ -49,12 +49,6 @@
         <option>24</option>
         <option>25</option>
     </select><br>
-    <select v-model="npcData.npcSize" @change="updateSize">
-        <option selected value="">Creature Size</option>
-        <option v-for="size in npcData.sizes" v-bind:value="size">
-            {{size}}
-        </option>
-    </select>
     <select v-model="npcData.npcType" @change="updateType">
         <option selected value="">Creature Type</option>
         <option v-for="type in npcData.types" v-bind:value="type">
@@ -91,33 +85,6 @@
             {{ classname }}
         </option>
     </select>
-    <span class="sidenav-text"><b>Defense Options</b></span>
-    <input type="text" v-model="npcData.npcDR" placeholder="Damage Resistances">
-    <input type="text" v-model="npcData.npcImmunities" placeholder="Immunities">
-    <span class="sidenav-text"><b>Offense Options</b></span>
-    <input type="text" v-model="npcData.npcSpeed" placeholder="Land Speed">
-    <input type="text" v-model="npcData.npcClimb" placeholder="Climb Speed">
-    <input type="text" v-model="npcData.npcBurrow" placeholder="Burrow Speed">
-    <input type="text" v-model="npcData.npcFly" placeholder="Fly Speed (Type)">
-    <input type="text" v-model="npcData.npcSwim" placeholder="Swim Speed">
-    <span class="sidenav-text">Recommended space:<br>
-       {{npcData.sizeChartRecs.space}}<span><br>
-    <input type="text" v-model="npcData.npcSpace" placeholder="Space (if not 5')"><br>
-    <span class="sidenav-text">Recommended reach:<br>
-        Tall: {{npcData.sizeChartRecs.tallReach}}<br>
-        Long: {{npcData.sizeChartRecs.longReach}}<span><br>
-    <input type="text" v-model="npcData.npcReach" placeholder="Reach (if not 5')"><br>
-    <span class="sidenav-text"><b>Attacks</b><br>
-         High +{{npcData.npcAttackHigh}} , Low +{{npcData.npcAttackLow}}<br></span>
-    <span class="sidenav-text"><input type="checkbox" class="sidenav-check" v-model="npcData.npcMeleeShown"> Show Melee </span><br>
-    <span v-if="npcData.npcMeleeShown == true"><input type="text" v-model="npcData.npcMeleeAttack" placeholder="Melee attack"><br></span>
-    <span v-if="npcData.npcMeleeShown == true"><input type="text" v-model="npcData.npcMeleeDamage" placeholder="Melee damage"><br></span>
-    <span class="sidenav-text"><input type="checkbox" class="sidenav-check" v-model="npcData.npcRangedShown"> Show Ranged </span><br>
-    <span v-if="npcData.npcRangedShown == true"><input type="text" v-model="npcData.npcRangedAttack" placeholder="Ranged attack"><br></span>
-    <span v-if="npcData.npcRangedShown == true"><input type="text" v-model="npcData.npcRangedDamage" placeholder="Ranged damage"><br></span>
-    <input type="text" v-model="npcData.npcOffensiveAbilities" placeholder="Need to SELECT some abilties."><br>
-    <input type="text" v-model="npcData.npcSpellLikeAbilities" placeholder="Need to SELECT some abilities."><br>
-    <span class="sidenav-text"><b>Statistics</b></span>
     <select v-model="npcData.npcAbilityScore1Assigned" @change="updateAbilities()">
         <option selected value="">Ability Score +{{npcData.npcAbilityScore1}}</option>
         <option value="Str">Strength +{{npcData.npcAbilityScore1}}</option>
@@ -145,33 +112,23 @@
         <option value="Wis">Wisdom +{{npcData.npcAbilityScore3}}</option>
         <option value="Cha">Charisma +{{npcData.npcAbilityScore3}}</option>
     </select>
-    <span class="sidenav-text"><b>Skills</b><br>
-        Master +{{npcData.npcMasterSkill}} ({{npcData.npcMasterSkillCount}})<br>
-        Good +{{npcData.npcGoodSkill}} ({{npcData.npcGoodSkillCount}})<br></span>
-        <input type="text" v-model="npcData.npcAcro" placeholder="Acrobatics (Dex)">
-        <input type="text" v-model="npcData.npcAthl" placeholder="Athletics (Str)">
-        <input type="text" v-model="npcData.npcBluf" placeholder="Bluff (Cha)">
-        <input type="text" v-model="npcData.npcComp" placeholder="Computers (Int)">
-        <input type="text" v-model="npcData.npcCult" placeholder="Culture (Int)">
-        <input type="text" v-model="npcData.npcDipl" placeholder="Diplomacy (Cha)">
-        <input type="text" v-model="npcData.npcDisg" placeholder="Disguise (Cha)">
-        <input type="text" v-model="npcData.npcEngi" placeholder="Engineering (Int)">
-        <input type="text" v-model="npcData.npcInti" placeholder="Intimidate (Cha)">
-        <input type="text" v-model="npcData.npcLife" placeholder="Life Science (Int)">
-        <input type="text" v-model="npcData.npcMedi" placeholder="Medicine (Int)">
-        <input type="text" v-model="npcData.npcMyst" placeholder="Mysticism (Wis)">
-        <input type="text" v-model="npcData.npcPerc" placeholder="Perception (Wis)">
-        <input type="text" v-model="npcData.npcPhys" placeholder="Physical Science (Int)">
-        <input type="text" v-model="npcData.npcPilo" placeholder="Piloting (Dex)">
-        <input type="text" v-model="npcData.npcProf" placeholder="Profession (below)">
-        <input type="text" v-model="npcData.npcProfName" placeholder="Profession name">
-        <input type="text" v-model="npcData.npcSens" placeholder="Sense Motive (Wis)">
-        <input type="text" v-model="npcData.npcSlei" placeholder="Sleight of Hand (Dex)">
-        <input type="text" v-model="npcData.npcStea" placeholder="Stealth (Dex)">
-        <input type="text" v-model="npcData.npcSurv" placeholder="Survival (Wis)">
-    </span>
-    <input type="text" v-model="npcData.npcLanguages" placeholder="Pick some languages."><br>
-    <input type="text" v-model="npcData.npcGear" placeholder="Describe any carried or equipped gear."><br>
+    <span class="sidenav-text"><b>Offense Options</b></span>
+    <input type="text" v-model="npcData.npcSpeed" placeholder="Land Speed">
+    <input type="text" v-model="npcData.npcClimb" placeholder="Climb Speed">
+    <input type="text" v-model="npcData.npcBurrow" placeholder="Burrow Speed">
+    <input type="text" v-model="npcData.npcFly" placeholder="Fly Speed (Type)">
+    <input type="text" v-model="npcData.npcSpace" placeholder="Space (if not 5')"><br>
+    <input type="text" v-model="npcData.npcReach" placeholder="Reach (if not 5')"><br>
+    <span class="sidenav-text"><b>Attacks</b><br>
+         High +{{npcData.npcAttackHigh}} , Low +{{npcData.npcAttackLow}}<br></span>
+    <span class="sidenav-text"><input type="checkbox" class="sidenav-check" v-model="npcData.npcMeleeShown"> Show Melee </span><br>
+    <span v-if="npcData.npcMeleeShown == true"><input type="text" v-model="npcData.npcMeleeAttack" placeholder="Melee attack"><br></span>
+    <span v-if="npcData.npcMeleeShown == true"><input type="text" v-model="npcData.npcMeleeDamage" placeholder="Melee damage"><br></span>
+    <span class="sidenav-text"><input type="checkbox" class="sidenav-check" v-model="npcData.npcRangedShown"> Show Ranged </span><br>
+    <span v-if="npcData.npcRangedShown == true"><input type="text" v-model="npcData.npcRangedAttack" placeholder="Ranged attack"><br></span>
+    <span v-if="npcData.npcRangedShown == true"><input type="text" v-model="npcData.npcRangedDamage" placeholder="Ranged damage"><br></span>
+    <input type="text" v-model="npcData.npcOffensiveAbilities" placeholder="Need to SELECT some abilties."><br>
+    <input type="text" v-model="npcData.npcSpellLikeAbilities" placeholder="Need to SELECT some abilities."><br>
 
 </div>
 
@@ -180,23 +137,20 @@
     <h1>{{ npcData.npcName }} (CR {{npcData.npcCR}})</h1>
     <p><b>{{ npcData.npcXP }} XP </b><br>
         <span>{{npcData.npcRace}} {{npcData.npcClass}}</span><br>
-        {{ npcData.npcAlignment }} {{ npcData.npcSize }} {{ npcData.npcType }} <span v-if="npcData.npcSubtype != ''">({{ npcData.npcSubtype }})</span><br>
+        {{ npcData.npcAlignment }} {{ npcData.npcSize }} {{ npcData.npcType }} ({{ npcData.npcSubtype }})<br>
         <b>Init</b> +{{ npcData.npcDex + npcData.npcInitiative }}; <b>Senses</b> {{npcData.npcSenses}}; <b>Perception</b> +{{npcData.npcPerception}}<br>
     </p>
     <h2>Defense</h2>
     <p>
        <b>HP</b> {{ npcData.npcHP }}; <b>EAC</b> {{npcData.npcEAC}}; <b>KAC</b> {{npcData.npcKAC}}<br>
-       <b>Fort</b> +{{npcData.npcFort}}; <b>Ref</b> +{{npcData.npcRef}}; <b>Will</b> +{{npcData.npcWill}}<br>
-       <span v-if="npcData.npcDR != ''"><b>DR</b> {{npcData.npcDR}} </span>
-       <span v-if="npcData.npcImmunities != ''"><b>Immunities</b> {{npcData.npcImmunities}}</span>
+       <b>Fort</b> +{{npcData.npcFort}}; <b>Ref</b> +{{npcData.npcRef}}; <b>Will</b> +{{npcData.npcWill}}
     </p>
     <h2>Offense</h2>
     <p>
         <b>Speed</b><span v-if="npcData.npcSpeed != ''"> {{npcData.npcSpeed}} </span>
         <span v-if="npcData.npcClimb != ''"><b>Climb</b> {{npcData.npcClimb}} </span>
         <span v-if="npcData.npcBurrow != ''"><b>Burrow</b> {{npcData.npcBurrow}} </span>
-        <span v-if="npcData.npcFly != ''"><b>Fly</b> {{npcData.npcFly}} </span>
-        <span v-if="npcData.npcSwim != ''"><b>Swim</b> {{npcData.npcSwim}} </span><br>
+        <span v-if="npcData.npcFly != ''"><b>Fly</b> {{npcData.npcFly}} </span><br>
         <span v-if="npcData.npcMeleeShown"><b>Melee</b> {{npcData.npcMeleeAttack}} ({{npcData.npcMeleeDamage}})<br></span>
         <span v-if="npcData.npcRangedShown"><b>Ranged</b> {{npcData.npcRangedAttack}} ({{npcData.npcRangedDamage}})<br></span>
         <span v-if="npcData.npcSpace != ''"><b>Space</b> {{npcData.npcSpace}}; </span>
@@ -213,27 +167,7 @@
         <b>Int</b> +{{npcData.npcInt}}; 
         <b>Wis</b> +{{npcData.npcWis}}; 
         <b>Cha</b> +{{npcData.npcCha}}<br>
-        <b>Skills</b>
-            <span v-if="npcData.npcAcro != ''"> Acrobatics +{{npcData.npcAcro}},</span>
-            <span v-if="npcData.npcAthl != ''"> Athletics +{{npcData.npcAthl}},</span>
-            <span v-if="npcData.npcBluf != ''"> Bluff +{{npcData.npcBluf}},</span>
-            <span v-if="npcData.npcComp != ''"> Computers +{{npcData.npcComp}},</span>
-            <span v-if="npcData.npcCult != ''"> Culture +{{npcData.npcCult}},</span>
-            <span v-if="npcData.npcDipl != ''"> Diplomacy +{{npcData.npcDipl}},</span>
-            <span v-if="npcData.npcDisg != ''"> Disguise +{{npcData.npcDisg}},</span>
-            <span v-if="npcData.npcEngi != ''"> Engineering +{{npcData.npcEngi}},</span>
-            <span v-if="npcData.npcInti != ''"> Intimidate +{{npcData.npcInti}},</span>
-            <span v-if="npcData.npcLife != ''"> Life Science +{{npcData.npcLife}},</span>
-            <span v-if="npcData.npcMedi != ''"> Medicine +{{npcData.npcMedi}},</span>
-            <span v-if="npcData.npcMyst != ''"> Mysticism +{{npcData.npcMyst}},</span>
-            <span v-if="npcData.npcPhys != ''"> Physical Science +{{npcData.npcPhys}},</span>
-            <span v-if="npcData.npcPilo != ''"> Piloting +{{npcData.npcPilo}},</span>
-            <span v-if="npcData.npcProf != ''"> Profession ({{npcData.npcProfName}}) +{{npcData.npcProf}},</span>
-            <span v-if="npcData.npcSens != ''"> Sense Motive +{{npcData.npcSens}},</span>
-            <span v-if="npcData.npcSlei != ''"> Sleight Of Hand +{{npcData.npcSlei}},</span>
-            <span v-if="npcData.npcStea != ''"> Stealth +{{npcData.npcStea}},</span>
-            <span v-if="npcData.npcSurv != ''"> Survival +{{npcData.npcSurv}}</span>
-        <br>
+        <b>Skills</b> {{npcData.npcSkills}}<br>
         <b>Languages</b> {{npcData.npcLanguages}}<br>
         <b>Gear</b> {{npcData.npcGear}}<br>
     </p>
