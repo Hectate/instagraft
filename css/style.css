@@ -22,11 +22,26 @@ p {
     margin-top: 0px;
 }
 
-input, select {
+input, select, textarea {
     width: 100%;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+}
+
+.input-50 {
+    width:50%;
+}
+
+.customHr {
+    width: 100%;
+    font-size: 2px;
+    color: grey;
+    line-height: 6px;
+    background: linear-gradient(black,white);
+    background-color:grey;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .warning {

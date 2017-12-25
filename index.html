@@ -91,33 +91,8 @@
             {{ classname }}
         </option>
     </select>
-    <span class="sidenav-text"><b>Defense Options</b></span>
-    <input type="text" v-model="npcData.npcDR" placeholder="Damage Resistances">
-    <input type="text" v-model="npcData.npcImmunities" placeholder="Immunities">
-    <span class="sidenav-text"><b>Offense Options</b></span>
-    <input type="text" v-model="npcData.npcSpeed" placeholder="Land Speed">
-    <input type="text" v-model="npcData.npcClimb" placeholder="Climb Speed">
-    <input type="text" v-model="npcData.npcBurrow" placeholder="Burrow Speed">
-    <input type="text" v-model="npcData.npcFly" placeholder="Fly Speed (Type)">
-    <input type="text" v-model="npcData.npcSwim" placeholder="Swim Speed">
-    <span class="sidenav-text">Recommended space:<br>
-       {{npcData.sizeChartRecs.space}}<span><br>
-    <input type="text" v-model="npcData.npcSpace" placeholder="Space (if not 5')"><br>
-    <span class="sidenav-text">Recommended reach:<br>
-        Tall: {{npcData.sizeChartRecs.tallReach}}<br>
-        Long: {{npcData.sizeChartRecs.longReach}}<span><br>
-    <input type="text" v-model="npcData.npcReach" placeholder="Reach (if not 5')"><br>
-    <span class="sidenav-text"><b>Attacks</b><br>
-         High +{{npcData.npcAttackHigh}} , Low +{{npcData.npcAttackLow}}<br></span>
-    <span class="sidenav-text"><input type="checkbox" class="sidenav-check" v-model="npcData.npcMeleeShown"> Show Melee </span><br>
-    <span v-if="npcData.npcMeleeShown == true"><input type="text" v-model="npcData.npcMeleeAttack" placeholder="Melee attack"><br></span>
-    <span v-if="npcData.npcMeleeShown == true"><input type="text" v-model="npcData.npcMeleeDamage" placeholder="Melee damage"><br></span>
-    <span class="sidenav-text"><input type="checkbox" class="sidenav-check" v-model="npcData.npcRangedShown"> Show Ranged </span><br>
-    <span v-if="npcData.npcRangedShown == true"><input type="text" v-model="npcData.npcRangedAttack" placeholder="Ranged attack"><br></span>
-    <span v-if="npcData.npcRangedShown == true"><input type="text" v-model="npcData.npcRangedDamage" placeholder="Ranged damage"><br></span>
-    <input type="text" v-model="npcData.npcOffensiveAbilities" placeholder="Need to SELECT some abilties."><br>
-    <input type="text" v-model="npcData.npcSpellLikeAbilities" placeholder="Need to SELECT some abilities."><br>
-    <span class="sidenav-text"><b>Statistics</b></span>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Ability Scores by CR</b></span>
     <select v-model="npcData.npcAbilityScore1Assigned" @change="updateAbilities()">
         <option selected value="">Ability Score +{{npcData.npcAbilityScore1}}</option>
         <option value="Str">Strength +{{npcData.npcAbilityScore1}}</option>
@@ -145,6 +120,63 @@
         <option value="Wis">Wisdom +{{npcData.npcAbilityScore3}}</option>
         <option value="Cha">Charisma +{{npcData.npcAbilityScore3}}</option>
     </select>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Defense Options</b></span>
+    <input type="text" v-model="npcData.npcDR" placeholder="Damage Resistances">
+    <input type="text" v-model="npcData.npcImmunities" placeholder="Immunities">
+    <input type="text" v-model="npcData.npcResistances" placeholder="Resistances">
+    <input type="text" v-model="npcData.npcSR" placeholder="SR">
+    <input type="text" v-model="npcData.npcWeaknesses" placeholder="Weaknesses">
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Offense Options</b></span>
+    <input type="text" v-model="npcData.npcSpeed" placeholder="Land Speed">
+    <input type="text" v-model="npcData.npcClimb" placeholder="Climb Speed">
+    <input type="text" v-model="npcData.npcBurrow" placeholder="Burrow Speed">
+    <input type="text" v-model="npcData.npcFly" placeholder="Fly Speed (source)">
+    <input type="text" v-model="npcData.npcSwim" placeholder="Swim Speed">
+    <span class="sidenav-text">Recommended space:<br>
+       {{npcData.sizeChartRecs.space}}<span><br>
+    <input type="text" v-model="npcData.npcSpace" placeholder="Space (if not 5')"><br>
+    <span class="sidenav-text">Recommended reach:<br>
+        Tall: {{npcData.sizeChartRecs.tallReach}}<br>
+        Long: {{npcData.sizeChartRecs.longReach}}<span><br>
+    <input type="text" v-model="npcData.npcReach" placeholder="Reach (if not 5')"><br>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Attacks</b><br>
+        High +{{npcData.npcAttackHigh}} , Low +{{npcData.npcAttackLow}}<br>
+        Natural Attack Damage:<br>
+        First/Second: {{npcData.npcMeleeDamageStandard}}<br>
+        Third: {{npcData.npcMeleeDamageThreeAttacks}}<br>
+        Fourth: {{npcData.npcMeleeDamageFourAttacks}}</span><br>    
+    <select v-model="npcData.npcAttacksTemp.type">
+        <option selected value="">Attack Type</option>
+        <option value="melee">Melee</option>
+        <option value="ranged">Ranged</option>
+        <option value="multi">Multi</option>
+    </select>
+    <input type="text" v-model="npcData.npcAttacksTemp.name" placeholder="Name">
+    <input type="number" v-model="npcData.npcAttacksTemp.bonus" placeholder="Bonus">
+    <input type="text" v-model="npcData.npcAttacksTemp.damage" placeholder="Damage">
+    <button type="button" @click="addAttack">Add Attack</button><br>
+    <div v-if="npcData.npcAttacks.melee.length >= 1">
+        <div v-for="(attack, index) in npcData.npcAttacks.melee">
+            <span class="sidenav-text">{{attack.name}} (m)</span><br>
+            <button type="button" @click="editAttack('melee',index)">Edit</button><button type="button" @click="deleteAttack('melee',index)">Delete</button><br>
+        </div>
+    </div>
+    <div v-if="npcData.npcAttacks.multi.length >= 1">
+        <div v-for="(attack, index) in npcData.npcAttacks.multi">
+            <span class="sidenav-text">{{attack.name}} (x)</span><br>
+            <button type="button" @click="editAttack('multi',index)">Edit</button><button type="button" @click="deleteAttack('multi',index)">Delete</button><br>
+        </div>
+    </div>
+    <div v-if="npcData.npcAttacks.ranged.length >= 1">
+        <div v-for="(attack, index) in npcData.npcAttacks.ranged">
+            <span class="sidenav-text">{{attack.name}} (r)</span><br>
+            <button type="button" @click="editAttack('ranged',index)">Edit</button><button type="button" @click="deleteAttack('ranged',index)">Delete</button><br>
+        </div>
+    </div>
+    <div class="customHr">.</div>
     <span class="sidenav-text"><b>Skills</b><br>
         Master +{{npcData.npcMasterSkill}} ({{npcData.npcMasterSkillCount}})<br>
         Good +{{npcData.npcGoodSkill}} ({{npcData.npcGoodSkillCount}})<br></span>
@@ -170,9 +202,57 @@
         <input type="text" v-model="npcData.npcStea" placeholder="Stealth (Dex)">
         <input type="text" v-model="npcData.npcSurv" placeholder="Survival (Wis)">
     </span>
-    <input type="text" v-model="npcData.npcLanguages" placeholder="Pick some languages."><br>
-    <input type="text" v-model="npcData.npcGear" placeholder="Describe any carried or equipped gear."><br>
-
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Misc. Info</b></span><br>
+    <input type="text" v-model="npcData.npcLanguages" placeholder="Known languages"><br>
+    <input type="text" v-model="npcData.npcGear" placeholder="Gear carried"><br>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Ecology</b></span><br>
+    <input type="text" v-model="npcData.npcEnv" placeholder="Describe environment, planet, etc.">
+    <input type="text" v-model="npcData.npcOrg" placeholder="Describe organization, size, etc.">
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Special Abilities</b><br>
+    Recommended count: {{npcData.npcSpecialsCount}}</span><br>
+    <input type="text" v-model="npcData.npcSpecialsTemp.name" placeholder="Name (Su. Ex. Sp.)">
+    <textarea rows="2" v-model="npcData.npcSpecialsTemp.description"placeholder="Add ability description"></textarea>
+    <button type="button" @click="addAbility">Add Ability</button><br>
+    <div v-if="npcData.npcSpecials.length != 0">
+        <div v-for="(special, index) in npcData.npcSpecials">
+            <span class="sidenav-text">{{special.name}}</span><br>
+            <button type="button" @click="editAbility(index)">Edit</button><button type="button" @click="deleteAbility(index)">Delete</button><br>
+        </div>
+    </div>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Various Abilities</b></span>
+    <input type="text" v-model="npcData.npcSenses" placeholder="Senses"><br>
+    <input type="text" v-model="npcData.npcDefensiveAbilities" placeholder="Defensive Abilities"><br>
+    <input type="text" v-model="npcData.npcOffensiveAbilities" placeholder="Offensive Abilities"><br>
+    <input type="text" v-model="npcData.npcSpellLikeAbilities" placeholder="Spell-like Abilities"><br>
+    <input type="text" v-model="npcData.npcOtherAbilities" placeholder="Other Abilities"><br>
+    <input type="text" v-model="npcData.npcAura" placeholder="Aura"><br>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Manual Adjustments</b><br>
+    The manual fields below will be <i>overridden</i> if you make changes to the standard fields above!</span>
+    <input class="input-50" type="text" v-model="npcData.npcXP" placeholder="Experience Points" title="XP"><span class="sidenav-text"> XP</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcHP" placeholder="Health Points" title="HP"><span class="sidenav-text"> HP</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcRP" placeholder="Resolve Points" title="RP"><span class="sidenav-text"> RP</span><br>
+    <input type="text" v-model="npcData.npcType" placeholder="Custom Type" title="Custom Type"><br>
+    <input type="text" v-model="npcData.npcSubtype" placeholder="Custom Subtype" title="Custom Subtype"><br>
+    <input type="text" v-model="npcData.npcRace" placeholder="Custom Race" title="Custom Race"><br>
+    <input type="text" v-model="npcData.npcClass" placeholder="Custom Class" title="Custom Class"><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcInitiative" placeholder="Initiative Mod" title="Initative Modifier"><span class="sidenav-text"> Initiative</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcPerception" placeholder="Perception Mod" title="Perception Modifier"><span class="sidenav-text"> Perception</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcEAC" placeholder="Energy Armor Class" title="Energy Armor Class"><span class="sidenav-text"> EAC</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcKAC" placeholder="Kinetic Armor Class" title="Kinetic Armor Class"><span class="sidenav-text"> KAC</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcFort" placeholder="Fortitude Mod" title="Fortitude Save Modifier"><span class="sidenav-text"> Fortitude</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcRef" placeholder="Reflex Mod" title="Reflex Save Modifier"><span class="sidenav-text"> Reflex</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcWill" placeholder="Will Mod" title="Will Save Modifier"><span class="sidenav-text"> Will</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcStr" placeholder="Strength Mod" title="Strength Modifier"><span class="sidenav-text"> Strength</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcDex" placeholder="Dexterity Mod" title="Dexterity Modifier"><span class="sidenav-text"> Dexterity</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcCon" placeholder="Constitution Mod" title="Constitution Modifier"><span class="sidenav-text"> Constitution</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcInt" placeholder="Intelligence Mod" title="Intelligence Modifier"><span class="sidenav-text"> Intelligence</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcWis" placeholder="Wisdom Mod" title="Wisdom Modifier"><span class="sidenav-text"> Wisdom</span><br>
+    <input class="input-50" type="text" v-model.number="npcData.npcCha" placeholder="Charisma Mod" title="Charisma Modifier"><span class="sidenav-text"> Charisma</span><br>
 </div>
 
 <div class="content">
@@ -181,14 +261,24 @@
     <p><b>{{ npcData.npcXP }} XP </b><br>
         <span>{{npcData.npcRace}} {{npcData.npcClass}}</span><br>
         {{ npcData.npcAlignment }} {{ npcData.npcSize }} {{ npcData.npcType }} <span v-if="npcData.npcSubtype != ''">({{ npcData.npcSubtype }})</span><br>
-        <b>Init</b> +{{ npcData.npcDex + npcData.npcInitiative }}; <b>Senses</b> {{npcData.npcSenses}}; <b>Perception</b> +{{npcData.npcPerception}}<br>
+        <b>Init</b> +{{ npcData.npcInitiative }}; 
+        <span v-if="npcData.npcSenses != ''"><b>Senses</b> {{npcData.npcSenses}}; </span>
+        <b>Perception</b> +{{npcData.npcPerception}}<br>
+        <span v-if="npcData.npcAura != ''"><b>Aura</b> {{npcData.npcAura}}</span>
     </p>
     <h2>Defense</h2>
     <p>
-       <b>HP</b> {{ npcData.npcHP }}; <b>EAC</b> {{npcData.npcEAC}}; <b>KAC</b> {{npcData.npcKAC}}<br>
+       <b>HP</b> {{ npcData.npcHP }}; 
+       <span v-if="npcData.npcRP >= 1"><b>RP</b> {{npcData.npcRP}};</span>
+       <b>EAC</b> {{npcData.npcEAC}}; 
+       <b>KAC</b> {{npcData.npcKAC}}<br>
        <b>Fort</b> +{{npcData.npcFort}}; <b>Ref</b> +{{npcData.npcRef}}; <b>Will</b> +{{npcData.npcWill}}<br>
-       <span v-if="npcData.npcDR != ''"><b>DR</b> {{npcData.npcDR}} </span>
-       <span v-if="npcData.npcImmunities != ''"><b>Immunities</b> {{npcData.npcImmunities}}</span>
+       <span v-if="npcData.npcDefensiveAbilities != ''"><b>Defensive Abilities</b> {{npcData.npcDefensiveAbilities}}; </span>
+       <span v-if="npcData.npcDR != ''"><b>DR</b> {{npcData.npcDR}}; </span>
+       <span v-if="npcData.npcImmunities != ''"><b>Immunities</b> {{npcData.npcImmunities}}; </span>
+       <span v-if="npcData.npcResistances != ''"><b>Resistances</b> {{npcData.npcResistances}}; </span>
+       <span v-if="npcData.npcSR != ''"><b>SR</b> {{npcData.npcSR}}; </span>
+       <span v-if="npcData.npcWeaknesses != ''"><b>Weaknesses</b> {{npcData.npcWeaknesses}}</span>
     </p>
     <h2>Offense</h2>
     <p>
@@ -197,8 +287,15 @@
         <span v-if="npcData.npcBurrow != ''"><b>Burrow</b> {{npcData.npcBurrow}} </span>
         <span v-if="npcData.npcFly != ''"><b>Fly</b> {{npcData.npcFly}} </span>
         <span v-if="npcData.npcSwim != ''"><b>Swim</b> {{npcData.npcSwim}} </span><br>
-        <span v-if="npcData.npcMeleeShown"><b>Melee</b> {{npcData.npcMeleeAttack}} ({{npcData.npcMeleeDamage}})<br></span>
-        <span v-if="npcData.npcRangedShown"><b>Ranged</b> {{npcData.npcRangedAttack}} ({{npcData.npcRangedDamage}})<br></span>
+        <span v-if="npcData.npcAttacks.melee.length != 0"><b>Melee</b></span>
+        <span v-for="(attack, index) in npcData.npcAttacks.melee">
+            <span v-if="index >= 1"> or</span> {{attack.name}} +{{attack.bonus}} ({{attack.damage}})<br v-if="index == npcData.npcAttacks.melee.length-1"></span>
+        <span v-if="npcData.npcAttacks.multi.length != 0"><b>Multiattack</b></span>
+        <span v-for="(attack, index) in npcData.npcAttacks.multi">
+            <span v-if="index >= 1"> or</span> {{attack.name}} +{{attack.bonus}} ({{attack.damage}})<br v-if="index == npcData.npcAttacks.multi.length-1"></span>
+        <span v-if="npcData.npcAttacks.ranged.length != 0"><b>Ranged</b></span>
+        <span v-for="(attack, index) in npcData.npcAttacks.ranged">
+            <span v-if="index >= 1"> or</span> {{attack.name}} +{{attack.bonus}} ({{attack.damage}})<br v-if="index == npcData.npcAttacks.ranged.length-1"></span>
         <span v-if="npcData.npcSpace != ''"><b>Space</b> {{npcData.npcSpace}}; </span>
         <span v-if="npcData.npcReach != ''"><b>Reach</b> {{npcData.npcReach}}<br></span>
         <span v-if="npcData.npcOffensiveAbilities != ''"><b>Offensive Abilities</b> {{npcData.npcOffensiveAbilities}}<br></span>
@@ -207,12 +304,12 @@
     <h2>Statistics</h2>
     <p>
         <span v-show="showWarning('abilities')" class="warning">You have the same ability selected for two modifiers!<br></span>
-        <b>Str</b> +{{npcData.npcStr}}; 
-        <b>Dex</b> +{{npcData.npcDex}}; 
-        <b>Con</b> +{{npcData.npcCon}}; 
-        <b>Int</b> +{{npcData.npcInt}}; 
-        <b>Wis</b> +{{npcData.npcWis}}; 
-        <b>Cha</b> +{{npcData.npcCha}}<br>
+        <b>Str</b> <span v-if="npcData.npcStr >= 0 ">+</span>{{npcData.npcStr}}; 
+        <b>Dex</b> <span v-if="npcData.npcDex >= 0 ">+</span>{{npcData.npcDex}}; 
+        <b>Con</b> <span v-if="npcData.npcCon >= 0 ">+</span>{{npcData.npcCon}}; 
+        <b>Int</b> <span v-if="npcData.npcInt >= 0 ">+</span>{{npcData.npcInt}}; 
+        <b>Wis</b> <span v-if="npcData.npcWis >= 0 ">+</span>{{npcData.npcWis}}; 
+        <b>Cha</b> <span v-if="npcData.npcCha >= 0 ">+</span>{{npcData.npcCha}}<br>
         <b>Skills</b>
             <span v-if="npcData.npcAcro != ''"> Acrobatics +{{npcData.npcAcro}},</span>
             <span v-if="npcData.npcAthl != ''"> Athletics +{{npcData.npcAthl}},</span>
@@ -235,6 +332,7 @@
             <span v-if="npcData.npcSurv != ''"> Survival +{{npcData.npcSurv}}</span>
         <br>
         <b>Languages</b> {{npcData.npcLanguages}}<br>
+        <span v-if="npcData.npcOtherAbilities != ''"><b>Other Abilities</b> {{npcData.npcOtherAbilities}}<br></span>
         <b>Gear</b> {{npcData.npcGear}}<br>
     </p>
     <h2>Ecology</h2>
@@ -242,10 +340,14 @@
         <b>Environment</b> {{npcData.npcEnv}}<br>
         <b>Organization</b> {{npcData.npcOrg}}
     </p>
+    <div v-if="npcData.npcSpecials.length != 0">
     <h2>Special Abilities</h2>
-    <p>
-        {{npcData.npcSpecials}}
-    </p>
+        <p>
+            <div v-for="special in npcData.npcSpecials">
+                <b>{{special.name}}</b> {{special.description}}
+            </div>
+        </p>
+    </div>
   </div>
 </div>
 </div>

@@ -1,7 +1,7 @@
 var data = {};
 data.npcData = {
     npcArray:'',
-    npcName: 'Name Me',
+    npcName: '',
     npcCR: '',
     npcXP: null,
     npcType: '',
@@ -14,6 +14,7 @@ data.npcData = {
     npcSenses: '',
     npcPerception: null,
     npcHP: null,
+    npcRP: null,
     npcEAC: null,
     npcKAC: null,
     npcFort: null,
@@ -21,6 +22,9 @@ data.npcData = {
     npcWill: null,
     npcDR:'',
     npcImmunities:'',
+    npcWeaknesses:'',
+    npcResistances:'',
+    npcSR:'',
     npcSpeed: "",
     npcClimb: "",
     npcBurrow:"",
@@ -28,14 +32,18 @@ data.npcData = {
     npcSwim:"",
     npcAttackHigh:'',
     npcAttackLow:'',
-    npcMeleeShown:false,
-    npcRangedShown:false,
-    npcMeleeAttack: '',
-    npcMeleeDamage:'',
-    npcRangedAttack: '',
-    npcRangedDamage:'',
+    npcAttacksTemp:{type:"",name:"",bonus:"",damage:""},
+    npcAttacks:{melee:[],multi:[],ranged:[]},
+    npcRangedDamageEnergy:"",
+    npcRangedDamageKinetic:"",
+    npcMeleeDamageStandard:"",
+    npcMeleeDamageThreeAttacks:"",
+    npcMeleeDamageFourAttacks:"",
+    npcDefensiveAbilities:'',
     npcOffensiveAbilities:'',
     npcSpellLikeAbilities:'',
+    npcOtherAbilities:'',
+    npcAura:'',
     npcSpace: '',
     npcReach: '',
     npcAbilityScore1:0,
@@ -44,7 +52,7 @@ data.npcData = {
     npcAbilityScore1Assigned:"",
     npcAbilityScore2Assigned:"",
     npcAbilityScore3Assigned:"",
-    npcSpecialsCount:1,
+    npcSpecialsCount:0,
     npcMasterSkill:0,
     npcMasterSkillCount:0,
     npcGoodSkill:0,
@@ -76,10 +84,10 @@ data.npcData = {
     npcInt: 0,
     npcWis: 0,
     npcCha: 0,
-    npcSkills:"TODO: Insert an array of Skills and scores as selected by the user, and then loop to display.",
     npcEnv: "",
     npcOrg: "",
-    npcSpecials: "TODO: Insert an array of specials that are selected by the user, and then loop through them to display.",
+    npcSpecials: [],
+    npcSpecialsTemp:{name:"",description:""},
     races: ["Skittermander","Urog","Human"],
     classes: ["Envoy","Mechanic","Mystic","Operative","Solarian","Soldier","Technomancer"],
     types: ["Abberation","Animal","Construct","Dragon","Fey","Humanoid","Magical Beast","Monstrous Humanoid","Ooze","Outsider","Plant","Undead","Vermin"],
@@ -92,7 +100,51 @@ var app = new Vue({
   el: '#app',
   data: data,
   methods: {
-    displayClassInList(array,classname) {
+    addAbility: function() {
+        if(this.npcData.npcSpecialsTemp.name != "" && this.npcData.npcSpecialsTemp.description != "") {
+            this.npcData.npcSpecials.push({name:this.npcData.npcSpecialsTemp.name,description:this.npcData.npcSpecialsTemp.description});
+            this.npcData.npcSpecialsTemp.name = "";
+            this.npcData.npcSpecialsTemp.description = "";
+        }
+    },
+    editAbility: function (index) {
+        this.npcData.npcSpecialsTemp = {
+            name:this.npcData.npcSpecials[index].name,
+            description:this.npcData.npcSpecials[index].description
+        };
+        this.deleteAbility(index);
+    },
+    deleteAbility: function (index) {
+        this.npcData.npcSpecials.splice(index,1);
+    },
+    addAttack: function (){
+        if(this.npcData.npcAttacksTemp.name != ""
+            && this.npcData.npcAttacksTemp.description != ""
+            && this.npcData.npcAttacksTemp.bonus != ""
+            && this.npcData.npcAttacksTemp.type != "") {
+            this.npcData.npcAttacks[this.npcData.npcAttacksTemp.type].push({
+                name:this.npcData.npcAttacksTemp.name,
+                bonus:this.npcData.npcAttacksTemp.bonus,
+                damage:this.npcData.npcAttacksTemp.damage
+            });
+            this.npcData.npcAttacksTemp = {
+                type:"",name:"",bonus:"",damage:""
+            };
+        }
+    },
+    editAttack: function (type,index) {
+        this.npcData.npcAttacksTemp = {
+            type:type,
+            name:this.npcData.npcAttacks[type][index].name,
+            bonus:this.npcData.npcAttacks[type][index].bonus,
+            damage:this.npcData.npcAttacks[type][index].damage
+        };
+        this.deleteAttack(type,index);
+    },
+    deleteAttack: function (type,index) {
+        this.npcData.npcAttacks[type].splice(index,1);
+    },
+    displayClassInList: function (array,classname) {
       if(array == "Expert") {
         switch (classname) {
           case "Envoy": return true; break;
@@ -177,6 +229,7 @@ function updateAbilityScores() {
         }
         else { app.npcData["npc"+list[i]] = 0; }
     }
+    app.npcData.npcInitiative = app.npcData.npcDex;
 }
 
 function getStats (array,cr) {
