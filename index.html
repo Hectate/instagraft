@@ -203,14 +203,6 @@
         <input type="text" v-model="npcData.npcSurv" placeholder="Survival (Wis)">
     </span>
     <div class="customHr">.</div>
-    <span class="sidenav-text"><b>Misc. Info</b></span><br>
-    <input type="text" v-model="npcData.npcLanguages" placeholder="Known languages"><br>
-    <input type="text" v-model="npcData.npcGear" placeholder="Gear carried"><br>
-    <div class="customHr">.</div>
-    <span class="sidenav-text"><b>Ecology</b></span><br>
-    <input type="text" v-model="npcData.npcEnv" placeholder="Describe environment, planet, etc.">
-    <input type="text" v-model="npcData.npcOrg" placeholder="Describe organization, size, etc.">
-    <div class="customHr">.</div>
     <span class="sidenav-text"><b>Special Abilities</b><br>
     Recommended count: {{npcData.npcSpecialsCount}}</span><br>
     <input type="text" v-model="npcData.npcSpecialsTemp.name" placeholder="Name (Su. Ex. Sp.)">
@@ -230,6 +222,12 @@
     <input type="text" v-model="npcData.npcSpellLikeAbilities" placeholder="Spell-like Abilities"><br>
     <input type="text" v-model="npcData.npcOtherAbilities" placeholder="Other Abilities"><br>
     <input type="text" v-model="npcData.npcAura" placeholder="Aura"><br>
+    <div class="customHr">.</div>
+    <span class="sidenav-text"><b>Misc. Info</b></span><br>
+    <input type="text" v-model="npcData.npcLanguages" placeholder="Known languages"><br>
+    <input type="text" v-model="npcData.npcGear" placeholder="Gear carried"><br>
+    <input type="text" v-model="npcData.npcEnv" placeholder="Describe environment, planet, etc.">
+    <input type="text" v-model="npcData.npcOrg" placeholder="Describe organization, size, etc.">
     <div class="customHr">.</div>
     <span class="sidenav-text"><b>Manual Adjustments</b><br>
     The manual fields below will be <i>overridden</i> if you make changes to the standard fields above!</span>
