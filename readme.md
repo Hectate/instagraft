@@ -2,7 +2,7 @@
 
 Instant Graftification is a Javascript-based implementation of the Starfinder (an pen-and-paper RPG from Paizo) graft rules found in Appendix 1 of _Alien Archive_. The goal of this project is to enable Game Masters to easily generate printable stat blocks in a consistent, easy-to-use format. To this end, it intends to automate many of the calculations and adjustments for each graft, and insert them into a statistics block template page with a print/view version easily produced afterward. 
 
-This repository holds the code that enables IG to function. If you would like to _use_ IG, you can simply visit {insert website here} to do so.
+This repository holds the code that enables IG to function. If you would like to _use_ IG, you can simply visit [https://hectate.github.io/instagraft/index.html] to do so.
 
 ## Getting Started
 
